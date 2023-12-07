@@ -33,14 +33,19 @@ class Product extends Model
         return $this->status == Product::AVIALABLE_PRODUCT;
     }
 
-    public function seller()
+    public function getImageAttribute(string $image)
     {
-        return $this->belongsto(Seller::class, 'seller_id', 'id');
+        return url('image'.'/'.$image);
     }
 
-    public function transactions()
+    public function generic()
     {
-        return $this->hasMany(Transaction::class, 'product_id', 'id');
+        return $this->belongsto(Generic::class, 'generic_id', 'id');
+    }
+
+    public function variations()
+    {
+        return $this->hasMany(ProductVariations::class, 'product_id', 'id');
     }
 
     public function categories()

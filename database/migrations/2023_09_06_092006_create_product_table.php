@@ -14,16 +14,19 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('image')->nullable();
             $table->string('name');
             $table->string('description', 1000);
-            $table->integer('quantity')->unsigned();
+            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('generic_id');
+            $table->unsignedBigInteger('unit_id')->nullable();
             $table->string('status')->default(Product::UNAVIALABLE_PRODUCT);
-            $table->string('image');
-            $table->unsignedBigInteger('seller_id');
             $table->timestamps();
             $table->softdeletes();
 
-            $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('generic_id')->references('id')->on('generics')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
         });
     }
 

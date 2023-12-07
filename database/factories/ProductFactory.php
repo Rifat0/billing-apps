@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Company;
+use App\Models\Generic;
 use App\Models\Product;
+use App\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,13 +20,17 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $generic = Generic::get()->random();
+        $company = Company::get()->random();
+
         return [
+            'image' => fake()->randomElement(['1.jpg', '2.jpg', '3.jpg']),
             'name' => fake()->word,
             'description' => fake()->paragraph(1),
-            'quantity' => fake()->numberBetween(1, 10),
-            'status' => fake()->randomElement([Product::AVIALABLE_PRODUCT, Product::UNAVIALABLE_PRODUCT]),
-            'image' => fake()->randomElement(['1.jpg', '2.jpg', '3.jpg']),
-            'seller_id' => User::all()->random()->id,
+            'company_id' => $company->id,
+            'generic_id' => $generic->id,
+            'generic_id' => $generic->id,
+            'status' => fake()->randomElement([Product::AVIALABLE_PRODUCT, Product::UNAVIALABLE_PRODUCT])
         ];
     }
 }

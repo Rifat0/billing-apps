@@ -19,7 +19,6 @@ class ProductCategoryController extends ApiController
     {
         $product->categories()->attach($category->id);
         return $this->showAll($product->categories);
-
     }
 
     public function destroy(Product $product, Category $category)
