@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Batch extends Model
+class ProductBatch extends Model
 {
     use HasFactory, SoftDeletes, HasApiTokens;
 

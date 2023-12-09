@@ -7,6 +7,9 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Buyer\BuyerController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Product\ProductVariationController;
+use App\Http\Controllers\Product\ProductCategoryController;
+use App\Http\Controllers\Product\ProductBatchController;
 use App\Http\Controllers\Buyer\BuyerSellerController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Buyer\BuyerProductController;
@@ -18,8 +21,6 @@ use App\Http\Controllers\Seller\SellerCategoryController;
 use App\Http\Controllers\Buyer\BuyerTransactionController;
 use App\Http\Controllers\Category\CategoryBuyerController;
 use App\Http\Controllers\Category\CategorySellerController;
-use App\Http\Controllers\Product\ProductCategoryController;
-use App\Http\Controllers\Product\ProductTransactionController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Generic\GenericController;
 use App\Http\Controllers\Unit\UnitController;
@@ -44,10 +45,15 @@ Route::resource('generics', GenericController::class, ['except' => ['create', 'e
 
 Route::resource('units', UnitController::class, ['except' => ['create', 'edit']]);
 
-Route::resource('products', ProductController::class, ['only' => ['index', 'show']]);
-Route::get('products/{product}/transaction', [ProductTransactionController::class, 'index']);
+Route::resource('products', ProductController::class, ['except' => ['create', 'edit']]);
+Route::resource('variations', ProductVariationController::class, ['except' => ['index', 'create', 'edit']]);
+Route::resource('products.categories', ProductCategoryController::class, ['only' => ['index', 'update', 'destroy']]);
+
+Route::get('all-batches', [ProductBatchController::class, 'allBatchers']);
+
+Route::get('product-batches/{product}', [ProductBatchController::class, 'index']);
 // Route::get('products/{product}/buyer', [ProductBuyerController::class ,'index'])->name('product.buyer');
-Route::post('products/{product}/transaction', [ProductTransactionController::class ,'update']);
-Route::resource('products.categories', ProductCategoryController::class);
+// Route::post('products/{product}/transaction', [ProductTransactionController::class ,'update']);
+
 
 // Route::post('oauth/token', [AccessTokenController::class, 'issueToken']);

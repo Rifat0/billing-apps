@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\ProductBatch;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Batch;
 
 return new class extends Migration
 {
@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('batches', function (Blueprint $table) {
+        Schema::create('product_batches', function (Blueprint $table) {
             $table->id();
             $table->string('batch_no')->unique()->nullable();
             $table->unsignedBigInteger('product_id');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->decimal('sale_price', 8, 2)->unsigned();
             $table->date('manufacturing_date')->nullable();
             $table->date('expire_date')->nullable();
-            $table->string('status')->default(Batch::RECEIVE_PENDING);
+            $table->string('status')->default(ProductBatch::RECEIVE_PENDING);
             $table->dateTime('receive_time')->nullable();
             $table->dateTime('purchase_time')->nullable();
             $table->timestamps();
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('batches');
+        Schema::dropIfExists('product_batches');
     }
 };

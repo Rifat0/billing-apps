@@ -16,12 +16,13 @@ class Product extends Model
     const UNAVIALABLE_PRODUCT='unavailable';
 
     protected $fillable=[
+        'image',
         'name',
         'description',
-        'quantity',
+        'company_id',
+        'generic_id',
+        'unit_id',
         'status',
-        'image',
-        'seller_id'
     ];
 
     protected $hidden=[
@@ -33,7 +34,7 @@ class Product extends Model
         return $this->status == Product::AVIALABLE_PRODUCT;
     }
 
-    public function getImageAttribute(string $image)
+    public function getImageAttribute($image)
     {
         return url('image'.'/'.$image);
     }
@@ -45,11 +46,21 @@ class Product extends Model
 
     public function variations()
     {
-        return $this->hasMany(ProductVariations::class, 'product_id', 'id');
+        return $this->hasMany(ProductVariation::class, 'product_id', 'id');
     }
 
     public function categories()
     {
         return $this->belongstoMany(Category::class, 'category_product', 'product_id', 'category_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsto(Company::class, 'company_id', 'id');
+    }
+
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'unit_id', 'id');
     }
 }
