@@ -52,6 +52,11 @@ Route::resource('products.categories', ProductCategoryController::class, ['only'
 Route::get('all-batches', [ProductBatchController::class, 'allBatchers']);
 
 Route::get('product-batches/{product}', [ProductBatchController::class, 'index']);
+Route::post('product-batches/{product}', [ProductBatchController::class, 'store']);
+Route::put('product-batches/{product}/{batch}', [ProductBatchController::class, 'update']);
+Route::post('product-batches/change-status/{batch}', [ProductBatchController::class, 'changeStatus']);
+Route::get('product-batches/{batch}/stocks', [ProductBatchController::class, 'stocks']);
+Route::get('product-batches/{batch}/stock-count', [ProductBatchController::class, 'checkAvailableStock']);
 // Route::get('products/{product}/buyer', [ProductBuyerController::class ,'index'])->name('product.buyer');
 // Route::post('products/{product}/transaction', [ProductTransactionController::class ,'update']);
 

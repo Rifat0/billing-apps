@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('product_batches', function (Blueprint $table) {
             $table->id();
-            $table->string('batch_no')->unique()->nullable();
+            $table->string('batch_no');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('product_variation_id');
+            $table->unsignedBigInteger('product_variation_id')->nullable();
             $table->unsignedBigInteger('supplier_id');
             $table->integer('quantity')->unsigned();
             $table->decimal('purchase_price', 8, 2)->unsigned();

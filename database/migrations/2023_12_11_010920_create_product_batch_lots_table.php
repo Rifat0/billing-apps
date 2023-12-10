@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_stocks', function (Blueprint $table) {
+        Schema::create('product_batch_lots', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('product_variation_id')->nullable();
             $table->unsignedBigInteger('batch_id');
-            $table->integer('quantity')->unsigned();
-            $table->string('type');
+            $table->string('lot_no');
             $table->timestamps();
             $table->softdeletes();
 
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_variation_id')->references('id')->on('product_variations')->onDelete('cascade');
             $table->foreign('batch_id')->references('id')->on('product_batches')->onDelete('cascade');
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_stocks');
+        Schema::dropIfExists('product_batch_lots');
     }
 };
